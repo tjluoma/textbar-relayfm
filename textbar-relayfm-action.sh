@@ -79,7 +79,7 @@ case "$TEXTBAR_TEXT" in
 	;;
 
 
-	*Less Than or Equal*)
+	*Less\ Than\ or\ Equal*)
 		open 'http://www.relay.fm/ltoe'
 
 		exit 0
@@ -142,7 +142,7 @@ case "$TEXTBAR_TEXT" in
 		exit 0
 	;;
 
-	*Under the Radar*)
+	*Under\ the\ Radar*)
 		open 'http://www.relay.fm/radar'
 
 		exit 0
