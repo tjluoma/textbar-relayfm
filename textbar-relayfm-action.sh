@@ -1,14 +1,24 @@
 #!/bin/zsh -f
-# open Relay Live
+# Purpose: This script is meant to be used with [TextBar](http://www.richsomerfield.com/apps/) as an 'action' script complement to 'textbar-relay.sh'
 #
 # From:	Timothy J. Luoma
 # Mail:	luomat at gmail dot com
 # Date:	2015-09-21
 
+if [ -e "$HOME/.path" ]
+then
+	source "$HOME/.path"
+else
+	PATH=/usr/local/scripts:/usr/local/bin:/usr/bin:/usr/sbin:/sbin:/bin
+fi
  
 
 NAME="$0:t:r"
 
+##
+## The `case` statement is meant to cover all of the possibilities of text we could be sent from the 'textbar-relay.sh' script
+## If there are spaces in the items, they either need to be \escaped\ or "quoted"
+## 
 
 case "$TEXTBAR_TEXT" in
 	"Go to Relay FM Website")
@@ -162,7 +172,13 @@ case "$TEXTBAR_TEXT" in
 	;;
 
 
-	*Chat\ Room*)
+	*"Open Chat Room"*)
+
+			# When there is a live show, 'textbar-relay.sh' will offer the user the opportunity to open the (IRC) chat rooom
+			# this can be done in several ways, but so far this script only covers two:
+			# 	1) If the user has the 'Textual 5.app' installed, launch that
+			# 	2) Otherwise, open the IRC channel in a web browser
+			# other IRC clines could easily be added as 'elif' statements 
 		if [ -d '/Applications/Textual 5.app' ]
 		then
 			open -a 'Textual 5'
@@ -174,11 +190,17 @@ case "$TEXTBAR_TEXT" in
 
 	"Listen Live in VLC")
 
+			# Where there is a live show, the 'textbar-relay.sh' script will check to see if VLC is installed in 
+			# /Applications or ~/Applications/ 
+			# And if it is, the user will be given the opportunity to listen to the live-stream in VLC 
+			#
+			# IF VLC is already running, we will open a new instance of VLC (open -n -a)
+			# otherwise, we just open VLC (open -a)
 		
 		if [[ "`pgrep -x VLC`" == "" ]]
 		then
 				open    -a VLC 'http://amp.relay.fm:8000/stream'
-s		else
+		else
 				open -n -a VLC 'http://amp.relay.fm:8000/stream'
 		fi
 
@@ -188,11 +210,25 @@ s		else
 
 	"Listen Live"|"Listen Live in Browser")
 
+			# If VLC is not installed, the user will be given the option to “Listen Live” 
+			# If VLC is installed, the user will be given the VLC option (above)
+			# AND a second option will be given to Listen Live in Browser 
+			# because maybe they have VLC but don't want to use it to listen to the live show  
 		open 'http://www.relay.fm/live'
 
 		exit 0
 	;;
 
+
+		# This last option covers if the user selects a menu 
+		# "Currently Off The Air"|
+		# OR
+		# "View Schedule of Live Shows"
+		# or
+		# ANYTHING ELSE (note the lone '*' at the end 
+		#
+		# Basically if we get some input and we aren't sure what to do with it
+		# we will show them the schedule. Because it's better than doing nothing.
 	"Currently Off The Air"|"View Schedule of Live Shows"|*)
 
 		open 'http://www.relay.fm/schedule'
