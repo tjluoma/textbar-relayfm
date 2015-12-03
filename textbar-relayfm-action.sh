@@ -5,16 +5,18 @@
 # Mail:	luomat at gmail dot com
 # Date:	2015-09-21
 
+PATH=/usr/local/bin:/usr/bin:/usr/sbin:/sbin:/bin
+
 if [ -e "$HOME/.path" ]
 then
+		# if the user has a file in their ~/ which defines the path, use it 
 	source "$HOME/.path"
-else
-	PATH=/usr/local/scripts:/usr/local/bin:/usr/bin:/usr/sbin:/sbin:/bin
+elif [ -d /usr/local/scripts ]
+then
+		# if /usr/local/scripts exists, add it to $PATH
+	PATH=/usr/local/scripts:$PATH
 fi
  
-
-NAME="$0:t:r"
-
 ##
 ## The `case` statement is meant to cover all of the possibilities of text we could be sent from the 'textbar-relay.sh' script
 ## If there are spaces in the items, they either need to be \escaped\ or "quoted"
@@ -42,14 +44,11 @@ case "$TEXTBAR_TEXT" in
 	;;
 
 
-
-
 	*Bonanza*)
 		open 'http://www.relay.fm/bonanza'
 
 		exit 0
 	;;
-
 
 
 	*Clockwise*)
@@ -59,13 +58,11 @@ case "$TEXTBAR_TEXT" in
 	;;
 
 
-
 	*Connected*)
 		open 'http://www.relay.fm/connected'
 
 		exit 0
 	;;
-
 
 
 	*Cortex*)
@@ -95,6 +92,7 @@ case "$TEXTBAR_TEXT" in
 		exit 0
 	;;
 
+
 	*Liftoff*)
 		open 'http://www.relay.fm/liftoff'
 
@@ -109,7 +107,6 @@ case "$TEXTBAR_TEXT" in
 	;;
 
 
-
 	*Material*)
 		open 'http://www.relay.fm/material'
 
@@ -122,7 +119,6 @@ case "$TEXTBAR_TEXT" in
 
 		exit 0
 	;;
-
 
 
 	*Rocket*)
