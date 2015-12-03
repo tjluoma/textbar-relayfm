@@ -175,7 +175,7 @@ else
 		echo "live" > "$PREVIOUS_LIVE_STATUS_FILE"
 	fi
 
-	if [ -d '/Applications/VLC.app' ]
+	if [ -d '/Applications/VLC.app' -o -d "$HOME/Applications/VLC.app" ]
 	then
 		echo "$SHOW_TITLE_CLEAN\nListen Live in Browser\nListen Live in VLC\n---\nOpen Chat Room"
 	else
