@@ -1,2 +1,4 @@
 # textbar-relayfm
-Shell scripts to use with TextBar related to listening to Relay.fm 
+
+Shell scripts for use with [TextBar](http://www.richsomerfield.com/apps/) related to listening to [Relay.fm](http://Relay.fm).
+
